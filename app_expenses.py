@@ -1,33 +1,24 @@
-class Expense:
-    def __init__(self, date, type, amount):
-        self.date = date
-        self.type = type
-        self.amount = amount
-
-class UserExpensesApp:
-    def __init__(self):
-        self.expenses = []
+class Task:
+    def __init__(self, title=None, due_date=None, due_time=None):
+        self.title = title
+        self.due_date = due_date
+        self.due_time = due_time
         
-    # إدخال المصاريف
-    def add_expense(self, date, type, amount):
-        expense = Expense(date, type, amount)
-        self.expenses.append(expense)
+class SchedulerApp:
     
-    # عرض التقارير
-    def display_reports(self, frequency='monthly'):
-        if frequency == 'monthly':
-            for expense in self.expenses:
-                print("Date: ", expense.date)
-                print("Type: ", expense.type)
-                print("Amount: ", expense.amount)
-                print("\n")
-    
-    # دعم التحليل
-    def analyze_expenses(self):
-        revenue = sum([e.amount for e in self.expenses if e.amount > 0])
-        expenses = sum([abs(e.amount) for e in self.expenses])
-        print("Total Revenue: ", revenue)
-        print("Total Expenses: ", expenses)
-``` 
+    def __init__(self):
+        self.tasks = []
 
-تم تصميم التطبيق والكود به طريقة منظمة ومستمرة. لتحميل المصاريف، استخدم `add_expense` بالتنسيق (`date`, `type`, `amount`). لعرض التقارير، استخدم 'display_reports' ولتحليل المصاريف، استخدم `analyze_expenses`. تم تعريف الكلاس `Expense` لتنفيذ هذه المصاريف، و `UserExpensesApp` لتضمين جميع الميزات المطلوبة.
+    def add_task(self, title=None, due_date=None, due_time=None):
+        new_task = Task(title, due_date, due_time)
+        self.tasks.append(new_task)
+        
+    def display_sorted_tasks(self):  # Display tasks sorted by date and time in descending order
+        self.tasks.sort(key=lambda x: (x.due_date, x.due_time), reverse=True)
+        for task in self.tasks:
+            print("Title: ", task.title, "Due Date: ", task.due_date, " Due Time: ", task.due_time)
+            
+    def change_task_time(self, title, new_due_time):  # Change the time for a specific task
+        for task in self.tasks:
+            if task.title == title:
+                task.due_time = new_due_time
