@@ -1,22 +1,16 @@
-name: Python syntax checker
-on: [push, pull_request]
+name: Python syntax check
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis.
-          
+          fetch-depth: 0
       - name: Set up Python 3.10
         uses: actions/setup-python@v5
         with:
-          python-version: 3.10
-      
-      - name: Checkout code
-        run: |
-          git fetch --prune --unshallow
-          
-      - name: Syntax check
+          python-version: '3.10'
+      - name: Check syntax of app_expenses.py
         run: |
           python -m py_compile app_expenses.py
