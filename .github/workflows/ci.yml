@@ -1,20 +1,20 @@
-name: Python syntax checker
-
+name: Python Syntax Checker CI
 on: [push]
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
+      - name: Checkout Repo
         uses: actions/checkout@v4
       
-      - name: Set up Python 3.10
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
           
-      - name: Run syntax checker
+      - name: Install Dependencies
+        run: pip install py_compile
+        
+      - name: Run Python Syntax Checker
         run: |
           python -m py_compile app_expenses.py
