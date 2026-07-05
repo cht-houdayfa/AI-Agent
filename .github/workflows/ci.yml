@@ -1,20 +1,17 @@
-name: Python Syntax Checker CI
+name: CI
 on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v4
-      
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
         with:
           python-version: '3.10'
           
-      - name: Install Dependencies
-        run: pip install py_compile
+      - name: Set up Python
+        uses: actions/setup-python@v5
         
-      - name: Run Python Syntax Checker
+      - name: Check syntax
         run: |
-          python -m py_compile app_expenses.py
+          pip install pycodestyle
+          pycodestyle app_expenses.py
